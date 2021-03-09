@@ -1,0 +1,22 @@
+{
+  "name": "carlosedurf/glauce",
+  "description": "Framework para desenvolvimento de sistemas pessoal!",
+  "minimum-stability": "dev",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Core\\": "core/",
+      "Models\\": "models/",
+      "Controllers\\": "controllers/"
+    },
+    "files": ["config.php"]
+  },
+  "authors": [
+    {
+      "name": "Carlos Eduardo",
+      "email": "carloseduardo.rocha.f@gmail.com"
+    }
+  ],
+  "require": {
+  }
+}
