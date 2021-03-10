@@ -1,3 +1,5 @@
+<?php layout('template.template'); ?>
+
 <h2>Usuário - Criação</h2>
 <hr>
 

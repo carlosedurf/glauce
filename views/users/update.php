@@ -1,3 +1,5 @@
+<?php layout('template.template'); ?>
+
 <h2>Usuário - Atualização</h2>
 <hr>
 
@@ -9,9 +11,11 @@
 
 <form method="post">
 
+    <input type="hidden" name="_method" value="PUT">
+
     <div class="form-group">
         <label for="name">Nome</label>
-        <input type="text" class="form-control" name="name" id="name" placeholder="Entre com Nome do Usuário" value="<?= $user['name'] ?>" required>
+        <input type="text" class="form-control" name="name" id="name" placeholder="Entre com Nome do Usuário" value="<?= $user->name ?>" required>
     </div>
 
     <hr>

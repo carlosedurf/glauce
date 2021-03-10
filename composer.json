@@ -5,11 +5,15 @@
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "Core\\": "core/",
-      "Models\\": "models/",
-      "Controllers\\": "controllers/"
+      "Glauce\\": "brain/",
+      "Source\\": "src/"
     },
-    "files": ["config.php"]
+    "files": [
+      "config/database.php",
+      "config/app.php",
+      "config/routes.php",
+      "helpers/views.php"
+    ]
   },
   "authors": [
     {

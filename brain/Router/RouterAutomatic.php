@@ -1,11 +1,11 @@
 <?php
 
-namespace Core;
+namespace Glauce\Router;
 
-class Core
+class RouterAutomatic
 {
 
-    public function run()
+    public static function run()
     {
 
         $url = $_SERVER['REQUEST_URI'];
@@ -41,9 +41,9 @@ class Core
         }
 
         $currentController = ucfirst($currentController);
-        $prefix = "\Controllers\\";
+        $prefix = "\Source\Controllers\\";
 
-        if(!file_exists("Controllers/{$currentController}.php") || !method_exists($prefix.$currentController, $currentAction)){
+        if(!file_exists("src/Controllers/{$currentController}.php") || !method_exists($prefix.$currentController, $currentAction)){
             $currentController  = "NotfoundController";
             $currentAction      = "index";
         }

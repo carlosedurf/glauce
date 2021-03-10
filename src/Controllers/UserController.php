@@ -1,11 +1,10 @@
 <?php
 
-namespace Controllers;
+namespace Source\Controllers;
 
-use Core\Controller;
-use Models\User;
+use Source\Models\User;
 
-class UserController extends Controller
+class UserController
 {
 
     public function index()
@@ -14,7 +13,7 @@ class UserController extends Controller
         $user = new User();
         $users = $user->findAll();
 
-        $this->loadTemplate("users/index", [
+        return view("users.index", [
             "users" => $users
         ]);
     }
@@ -26,18 +25,17 @@ class UserController extends Controller
 
         if((isset($_POST['name']) && !empty($_POST['name'])) && (isset($_POST['password']) && !empty($_POST['password']))){
 
+            if($_POST['password'] === $_POST['password_confirm']){
 
-            $name           = addslashes($_POST['name']);
-            $email          = addslashes($_POST['email']);
-            $senha          = addslashes($_POST['password']);
-            $senhaConfirm   = addslashes($_POST['password_confirm']);
-
-            if($senha === $senhaConfirm){
+                unset($_POST['password_confirm']);
 
                 $user = new User();
 
-                if(!$user->emailExists($email)){
-                    $user->create($name, $email, $senha);
+                if(!$user->emailExists($_POST['email'])){
+
+                    $_POST['password'] = md5($_POST['password']);
+
+                    $user->create($_POST);
                     header("Location: ".HOME.'/user');
                 }else{
                     $msgError = "E-mail já cadastrado!";
@@ -49,13 +47,15 @@ class UserController extends Controller
 
         }
 
-        $this->loadTemplate("users/create", [
+        return view("users/create", [
             "error" => $msgError
         ]);
+
     }
 
     public function update($id)
     {
+        $id = $id['id'];
 
         $msgError = "";
 
@@ -63,15 +63,16 @@ class UserController extends Controller
 
         if(isset($_POST['name']) && !empty($_POST['name'])){
 
-            $name           = addslashes($_POST['name']);
-            $senha          = addslashes($_POST['password']);
-            $senhaConfirm   = addslashes($_POST['password_confirm']);
+            $_POST['id'] = $id;
 
-            if(!empty($senha)):
+            if(!empty($_POST['password'])):
 
-                if($senha === $senhaConfirm){
+                if($_POST['password'] === $_POST['password_confirm']){
 
-                    $user->update($id, $name, $senha);
+                    unset($_POST['password_confirm']);
+                    $_POST['password'] = md5($_POST['password']);
+
+                    $user->update($_POST);
                     header("Location: ".HOME.'/user');
 
                 }else{
@@ -80,7 +81,10 @@ class UserController extends Controller
 
             else:
 
-                $user->update($id, $name);
+                unset($_POST['password']);
+                unset($_POST['password_confirm']);
+
+                $user->update($_POST);
                 header("Location: ".HOME.'/user');
 
             endif;
@@ -89,7 +93,7 @@ class UserController extends Controller
 
         $user = $user->find($id);
 
-        $this->loadTemplate("users/update", [
+        return view("users/update", [
             "error" => $msgError,
             "user"  => $user
         ]);
