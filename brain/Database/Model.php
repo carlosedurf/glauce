@@ -7,7 +7,7 @@ use \PDO;
 class Model
 {
 
-    protected PDO $db;
+    protected $db;
     protected string $table;
     protected bool $timestamps;
     protected string $query;
@@ -61,7 +61,8 @@ class Model
         $get->execute();
 
         if(!$get->rowCount()){
-            throw new \Exception("Nada Encontrado para essa consulta!");
+//            throw new \Exception("Nada Encontrado para essa consulta!");
+            return false;
         }
 
         if($get->rowCount() === 1)

@@ -64,4 +64,19 @@ class BaseRouter
         $defindedController->$action($args);
     }
 
+    public static function middleware(array $middlewares)
+    {
+
+        if(count($middlewares)){
+
+            foreach ($middlewares as $middleware){
+
+//                $middleware = "\Source\Middlewares\\".$middleware;
+//                new $middleware();
+
+            }
+        }
+
+    }
+
 }

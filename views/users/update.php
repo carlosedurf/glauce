@@ -1,7 +1,25 @@
-<?php layout('template.template'); ?>
+<?= layout('admin.layout.layout') ?>
 
-<h2>Usuário - Atualização</h2>
-<hr>
+<!-- Content Header (Page header) -->
+<div class="content-header card card-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Usuários - Atualização</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="<?= routeUrl('admin') ?>">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Usuário</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<section class="content">
+    <div class="container-fluid card card-body">
 
 <?php if(!empty($error)): ?>
 <div class="alert alert-danger">
@@ -10,8 +28,7 @@
 <?php endif; ?>
 
 <form method="post">
-
-    <input type="hidden" name="_method" value="PUT">
+    <?= method('PUT') ?>
 
     <div class="form-group">
         <label for="name">Nome</label>
@@ -30,3 +47,6 @@
     </div>
     <button type="submit" class="btn btn-primary">Atualizar</button>
 </form>
+
+    </div>
+</section>

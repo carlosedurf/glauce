@@ -17,13 +17,23 @@ class App
             RouterAutomatic::run();
         }else{
 
-            require ConfigApp::BASEDIR . "/routes/web.php";
+            self::loadRouteWeb();
 
             Router::check(Router::$routes);
 
         }
 
 
+    }
+
+    private static function loadRouteWeb()
+    {
+        require ConfigApp::BASEDIR . "/routes/web.php";
+    }
+
+    private static function loadRouteApi()
+    {
+        require ConfigApp::BASEDIR . "/routes/api.php";
     }
 
 }

@@ -12,7 +12,11 @@
       "config/database.php",
       "config/app.php",
       "config/routes.php",
-      "helpers/views.php"
+      "helpers/views.php",
+      "helpers/sessions.php",
+      "helpers/router.php",
+      "helpers/auth.php",
+      "helpers/arrays.php"
     ]
   },
   "authors": [

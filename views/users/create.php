@@ -1,15 +1,27 @@
-<?php layout('template.template'); ?>
+<?= layout('admin.layout.layout') ?>
 
-<h2>Usuário - Criação</h2>
-<hr>
-
-<?php if(!empty($error)): ?>
-<div class="alert alert-danger">
-    <?= $error; ?>
+<!-- Content Header (Page header) -->
+<div class="content-header card card-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Usuários - Criação</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="<?= routeUrl('admin') ?>">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Usuário</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
 </div>
-<?php endif; ?>
+<!-- /.content-header -->
 
-<form method="post">
+<section class="content">
+<div class="container-fluid card card-body">
+
+<form method="post" action="<?= routeUrl('admin.user.insert') ?>">
 
     <div class="form-group">
         <label for="name">Nome</label>
@@ -30,3 +42,6 @@
     </div>
     <button type="submit" class="btn btn-primary">Cadastrar</button>
 </form>
+
+</div>
+</section>

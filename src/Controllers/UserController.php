@@ -2,10 +2,19 @@
 
 namespace Source\Controllers;
 
+use Glauce\Request\Request;
+use Glauce\Session\Flash;
 use Source\Models\User;
 
 class UserController
 {
+
+    protected $user;
+
+    public function __construct()
+    {
+        $this->request = new Request();
+    }
 
     public function index()
     {
@@ -20,8 +29,11 @@ class UserController
 
     public function create()
     {
+        return view("users/create");
+    }
 
-        $msgError = "";
+    public function insert()
+    {
 
         if((isset($_POST['name']) && !empty($_POST['name'])) && (isset($_POST['password']) && !empty($_POST['password']))){
 
@@ -38,19 +50,14 @@ class UserController
                     $user->create($_POST);
                     header("Location: ".HOME.'/user');
                 }else{
-                    $msgError = "E-mail já cadastrado!";
+                    flashMessage('E-mail já cadastrado!', 'danger');
                 }
 
             }else{
-                $msgError = "As senhas não coincidem!";
+                flashMessage('As senhas não coincidem!', 'danger');
             }
 
         }
-
-        return view("users/create", [
-            "error" => $msgError
-        ]);
-
     }
 
     public function update($id)
@@ -73,7 +80,7 @@ class UserController
                     $_POST['password'] = md5($_POST['password']);
 
                     $user->update($_POST);
-                    header("Location: ".HOME.'/user');
+                    redirect('admin.user');
 
                 }else{
                     $msgError = "As senhas não coincidem!";
@@ -85,7 +92,7 @@ class UserController
                 unset($_POST['password_confirm']);
 
                 $user->update($_POST);
-                header("Location: ".HOME.'/user');
+                return redirect('admin.user');
 
             endif;
 
@@ -93,7 +100,7 @@ class UserController
 
         $user = $user->find($id);
 
-        return view("users/update", [
+        return view("users.update", [
             "error" => $msgError,
             "user"  => $user
         ]);
@@ -101,9 +108,18 @@ class UserController
 
     public function delete($id)
     {
+
         $user = new User();
         $user->delete($id);
-        header("Location: ".HOME.'/user');
+//        flashMessage('Usuário removido com sucesso!', 'danger');
+        redirect('admin.user');
+    }
+
+    public function perfil()
+    {
+        return view('perfil', [
+           "user" => (new User())->find(authUser()->id)
+        ]);
     }
 
 }

@@ -12,12 +12,14 @@ class View
 
     public static function view($view, $data = [])
     {
+
         $view = Dir::fixPath($view);
-        ob_start();
         extract($data);
+
         require ConfigApp::BASEDIR . "/views/{$view}.php";
 
         $html = ob_get_contents();
+
         ob_end_clean();
 
         if(!is_null(self::$template)){
